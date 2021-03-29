@@ -1,5 +1,8 @@
 package com.lambda.foodtruck.repositories;
 
-public class OperatorRepository
+import com.lambda.foodtruck.models.Operator;
+import org.springframework.data.repository.CrudRepository;
+
+public interface OperatorRepository extends CrudRepository<Operator,Long>
 {
 }
