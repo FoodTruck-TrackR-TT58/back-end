@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "trucks")
-public class Truck
+public class Truck extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

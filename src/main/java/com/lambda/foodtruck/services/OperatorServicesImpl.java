@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.Date;
+
 @Transactional
 @Service(value = "operatorServices")
 public class OperatorServicesImpl implements OperatorServices
@@ -33,7 +34,7 @@ public class OperatorServicesImpl implements OperatorServices
 
         newoperator.setUsername(operator.getUsername());
         newoperator.setEmail(operator.getEmail());
-        newoperator.setPassword(operator.getPassword());
+        newoperator.setPasswordNoEncrypt(operator.getPassword());
 
         newoperator.getTrucksOwned().clear();
         for(Truck tr: operator.getTrucksOwned())

@@ -39,8 +39,8 @@ public class SeedData
     @Override
     public void run(String... args) throws Exception
     {
-        Operator o1 = new Operator("coolrunner12", "lambdallama", "coolrunner12@gmail.com");
-        Diner d1 = new Diner("Ramasundar", "lambdallama", "47.7066144,-116.8551");
+        Operator o1 = new Operator("coolrunner", "lambdallama", "coolrunner12@gmail.com");
+        Diner d1 = new Diner("Ramasundar", "lambdallama","lambda@mail.lm", "47.7066144,-116.8551");
         dinerServices.save(d1);
 
         Truck t1 = new Truck( "American", o1,new Date() ,"47.7066144,-116.8551", "",d1);

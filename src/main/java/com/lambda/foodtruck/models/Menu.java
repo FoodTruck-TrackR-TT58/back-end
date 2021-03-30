@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "menus")
-public class Menu
+public class Menu extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

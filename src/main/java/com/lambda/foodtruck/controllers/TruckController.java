@@ -29,6 +29,13 @@ public class TruckController
             HttpStatus.OK);
     }
 
+    @GetMapping(value = "/truck/{truckid}",produces = "application/json")
+    public ResponseEntity<?> findTruckByid(@PathVariable long truckid)
+    {
+        Truck truck = truckServices.findTruckByid(truckid);
+        return new ResponseEntity<>(truck,HttpStatus.OK);
+    }
+
     @PostMapping(value ="/truck",consumes = "application/json",produces = "application/json")
     public ResponseEntity<?> addNewTruck(@RequestBody @Valid Truck truck)
     {

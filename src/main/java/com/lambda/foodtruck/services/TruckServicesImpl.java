@@ -30,6 +30,14 @@ public class TruckServicesImpl implements TruckServices
         return trucks;
     }
 
+    @Override
+    public Truck findTruckByid(long id)
+    {
+        Truck truck = truckRepository.findById(id)
+            .orElseThrow(()->new EntityNotFoundException("Truck "+id +" not found"));
+        return truck;
+    }
+
     @Transactional
     @Override
     public Truck save(Truck truck)
