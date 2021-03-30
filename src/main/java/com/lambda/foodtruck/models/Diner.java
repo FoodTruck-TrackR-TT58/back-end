@@ -1,15 +1,21 @@
 package com.lambda.foodtruck.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "diners")
-public class Diner
+public class Diner extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +28,10 @@ public class Diner
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    @Email
+    @Column(unique = true,nullable = false)
+    private String email;
+
     private String currentlocation;
 
     @OneToMany(mappedBy = "diner",
@@ -33,11 +43,11 @@ public class Diner
     public Diner() {
     }
 
-    public Diner(String username, String password, String currentlocation, Set<Truck> faveTrucks) {
-        this.username = username;
-        this.password = password;
+    public Diner(String username, String password,String email, String currentlocation) {
+        setUsername(username);
+        setPassword(password);
+        this.email = email;
         this.currentlocation = currentlocation;
-        this.faveTrucks = faveTrucks;
     }
 
     public long getDinerid() {
@@ -61,9 +71,14 @@ public class Diner
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        this.password = encoder.encode(password);
     }
 
+    public void setPasswordNoEncrypt(String password)
+    {
+        this.password = password;
+    }
     public String getCurrentlocation() {
         return currentlocation;
     }
@@ -89,5 +104,16 @@ public class Diner
                 ", currentlocation='" + currentlocation + '\'' +
                 ", faveTrucks=" + faveTrucks +
                 '}';
+    }
+
+    @JsonIgnore
+    public List<SimpleGrantedAuthority> getAuthority()
+    {
+        List<SimpleGrantedAuthority> rtnList = new ArrayList<>();
+
+        String myRole = "ROLE_" + "DINER";
+        rtnList.add(new SimpleGrantedAuthority(myRole));
+
+        return rtnList;
     }
 }

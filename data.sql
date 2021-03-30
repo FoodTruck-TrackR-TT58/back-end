@@ -1,0 +1,45 @@
+-- DELETE
+-- FROM custratings;
+--
+-- DELETE
+-- FROM diners;
+--
+-- DELETE
+-- FROM images;
+--
+-- DELETE
+-- FROM menus;
+--
+-- DELETE
+-- FROM operators;
+--
+-- DELETE
+-- FROM trucks;
+--
+-- INSERT INTO OPERATORS (userid, username, password, email)
+-- VALUES (1, 'coolrunner12', 'lambdallama', 'coolrunner12@gmail.com'),
+--        (2, 'restaurantguy32', 'lambdallama', 'restaurantguy32@gmail.com');
+--
+-- INSERT INTO TRUCKS (truckid, cuisinetype,operatorid, departuretime, location, imageoftruck)
+-- VALUES (1, 'American',1, '2020-02-02 10:10:10' ,'47.7066144, -116.8551', ''),
+--        (2, 'Indian',2,'2020-03-03 11:11:11' ,'40.7127281, -74.0060152', '');
+--
+-- INSERT INTO CUSTRATINGS (ratingid, rating,truckid)
+-- VALUES (1, 4,1),
+--        (2, 5,1);
+--
+-- INSERT INTO DINERS (dinerid, username, password, currentlocation)
+-- VALUES (1, 'Ramasundar', 'lambdallama', '47.7066144, -116.8551'),
+--        (2, 'Alex123', 'lambdallama', '40.7127281, -74.0060152');
+--
+-- INSERT INTO IMAGES (imgid, image)
+-- VALUES (1, ''),
+--        (2, '');
+--
+-- INSERT INTO MENUS(menuid, itemname, itemdescription, itemprice, truck)
+-- VALUES (1, 'taco', 'Meat, cheese, and vegetables in a tortilla', 4.35, ''),
+--        (2, 'cheeseburger', 'Meat, and cheese on a bun', 5.25, '');
+--
+--
+--
+-- alter sequence hibernate_sequence restart with 15;

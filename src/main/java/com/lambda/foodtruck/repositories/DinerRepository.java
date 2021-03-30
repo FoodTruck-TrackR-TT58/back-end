@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface DinerRepository extends CrudRepository<Diner, Long>
 {
+    Diner findDinerByUsername(String username);
 }

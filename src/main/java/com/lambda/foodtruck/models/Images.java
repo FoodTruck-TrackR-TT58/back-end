@@ -8,7 +8,7 @@ import java.awt.*;
 
 @Entity
 @Table(name = "images")
-public class Images
+public class Images extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -2,15 +2,20 @@ package com.lambda.foodtruck.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "operators")
-public class Operator
+public class Operator extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,10 +45,10 @@ public class Operator
     public Operator(
         String username,
         String password,
-        @Email String email)
+        String email)
     {
-        this.username = username;
-        this.password = password;
+        setUsername(username);
+        setPassword(password);
         this.email = email;
     }
 
@@ -74,6 +79,11 @@ public class Operator
 
     public void setPassword(String password)
     {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        this.password = encoder.encode(password);
+    }
+    public void setPasswordNoEncrypt(String password)
+    {
         this.password = password;
     }
 
@@ -95,5 +105,28 @@ public class Operator
     public void setTrucksOwned(Set<Truck> trucksOwned)
     {
         this.trucksOwned = trucksOwned;
+    }
+
+    @JsonIgnore
+    public List<SimpleGrantedAuthority> getAuthority()
+    {
+        List<SimpleGrantedAuthority> rtnList = new ArrayList<>();
+
+            String myRole = "ROLE_" + "OPERATOR";
+            rtnList.add(new SimpleGrantedAuthority(myRole));
+
+        return rtnList;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Operator{" +
+            "userid=" + userid +
+            ", username='" + username + '\'' +
+            ", password='" + password + '\'' +
+            ", email='" + email + '\'' +
+            ", trucksOwned=" + trucksOwned +
+            '}';
     }
 }
