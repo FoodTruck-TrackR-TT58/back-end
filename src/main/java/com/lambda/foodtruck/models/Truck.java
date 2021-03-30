@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +31,7 @@ public class Truck
     private int customerratingavg;
     private Date departuretime;
     private String location;
-    private ImageIcon imageoftruck;
+    private String imageoftruck;
 
     @ManyToOne
     @JoinColumn(name = "operatorid",nullable = false)
@@ -51,12 +52,14 @@ public class Truck
         String cuisinetype,
         Operator operator,
         Date departuretime,
-        String location)
+        String location,
+        String image)
     {
         this.cuisinetype = cuisinetype;
         this.operator = operator;
         this.departuretime = departuretime;
         this.location =  location;
+        this.imageoftruck = image;
     }
 
     public long getTruckid()
@@ -69,21 +72,14 @@ public class Truck
         this.truckid = truckid;
     }
 
-    public ImageIcon getImageoftruck()
+    public String getImageoftruck()
     {
         return imageoftruck;
     }
 
-    public void setImageoftruck(String imageoftruck,Image image)
+    public void setImageoftruck(String img)
     {
-        if(imageoftruck != null)
-    {
-        this.imageoftruck = new ImageIcon(imageoftruck);
-    }
-    else if(image!=null)
-    {
-        this.imageoftruck = new ImageIcon(image);
-    }
+        this.imageoftruck = img;
     }
 
     public String getCuisinetype()

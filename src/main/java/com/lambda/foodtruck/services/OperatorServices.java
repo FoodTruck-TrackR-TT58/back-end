@@ -1,5 +1,8 @@
 package com.lambda.foodtruck.services;
 
-public class OperatorServices
+import com.lambda.foodtruck.models.Operator;
+
+public interface OperatorServices
 {
+    Operator save(Operator operator);
 }
