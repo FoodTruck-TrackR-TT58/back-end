@@ -54,5 +54,12 @@ public class TruckController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PatchMapping(value = "/truck/{truckid}",produces = "application/json",consumes = "application/json")
+    public ResponseEntity<?> updateTruck(@PathVariable long truckid,@RequestBody Truck truck)
+    {
+      truck.setTruckid(truckid);
+      truckServices.update(truck,truckid);
+      return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

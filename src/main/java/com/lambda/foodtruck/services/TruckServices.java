@@ -7,5 +7,6 @@ import java.util.List;
 public interface TruckServices
 {
     List<Truck> findAllTrucks();
+    Truck update(Truck truck,long id);
     Truck save(Truck truck);
 }

@@ -33,11 +33,10 @@ public class Diner
     public Diner() {
     }
 
-    public Diner(String username, String password, String currentlocation, Set<Truck> faveTrucks) {
+    public Diner(String username, String password, String currentlocation) {
         this.username = username;
         this.password = password;
         this.currentlocation = currentlocation;
-        this.faveTrucks = faveTrucks;
     }
 
     public long getDinerid() {

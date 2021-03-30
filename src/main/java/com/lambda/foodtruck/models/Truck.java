@@ -28,7 +28,7 @@ public class Truck
     @JsonIgnoreProperties(value = "truck")
     private List<CustRating> customerratings = new ArrayList<>();
 
-    private int customerratingavg;
+    private int customerratingavg=0;
     private Date departuretime;
     private String location;
     private String imageoftruck;
@@ -39,7 +39,7 @@ public class Truck
     private Operator operator;
 
     @ManyToOne
-    @JoinColumn(name = "dinerid", nullable = false)
+    @JoinColumn(name = "dinerid")
     @JsonIgnoreProperties(value = "faveTrucks")
     private Diner diner;
 
@@ -58,13 +58,16 @@ public class Truck
         Operator operator,
         Date departuretime,
         String location,
-        String image)
+        String image,
+        Diner diner)
     {
         this.cuisinetype = cuisinetype;
         this.operator = operator;
         this.departuretime = departuretime;
         this.location =  location;
         this.imageoftruck = image;
+        this.diner = diner;
+
     }
 
     public long getTruckid()
@@ -105,16 +108,21 @@ public class Truck
     public void setCustomerratings(List<CustRating> customerratings)
     {
         this.customerratings = customerratings;
-        for(CustRating cr : customerratings)
-        {
-            this.customerratingavg = this.customerratingavg+cr.getRating();
-        }
-        this.customerratingavg=this.customerratingavg/customerratings.size();
+//        for(CustRating cr : customerratings)
+//        {
+//            this.customerratingavg = this.customerratingavg+cr.getRating();
+//        }
+//        this.customerratingavg=this.customerratingavg/customerratings.size();
     }
 
     public int getCustomerratingavg()
     {
         return customerratingavg;
+    }
+
+    public void setCustomerratingavg(int customerratingavg)
+    {
+        this.customerratingavg = customerratingavg;
     }
 
     public Operator getOperator()
@@ -155,5 +163,15 @@ public class Truck
     public void setMenus(List<Menu> menus)
     {
         this.menus = menus;
+    }
+
+    public Diner getDiner()
+    {
+        return diner;
+    }
+
+    public void setDiner(Diner diner)
+    {
+        this.diner = diner;
     }
 }

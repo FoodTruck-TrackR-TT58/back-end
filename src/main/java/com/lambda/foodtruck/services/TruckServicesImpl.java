@@ -58,13 +58,93 @@ public class TruckServicesImpl implements TruckServices
         }
 
         newTruck.getCustomerratings().clear();
+        int avg = 0;
         for(CustRating cr : truck.getCustomerratings())
         {
+            avg = cr.getRating() + avg;
             newTruck.getCustomerratings()
                 .add(new CustRating(cr.getRating(),newTruck));
+
+        }
+        if(truck.getCustomerratings().size()>0)
+        {
+            newTruck.setCustomerratingavg(avg / truck.getCustomerratings()
+                .size());
         }
 
         newTruck.setImageoftruck(truck.getImageoftruck());
         return truckRepository.save(newTruck);
+    }
+
+    @Override
+    public Truck update(
+        Truck truck,
+        long id)
+    {
+
+        Truck updTruck = truckRepository.findById(truck.getTruckid())
+                .orElseThrow(()-> new EntityNotFoundException("Truck "+ truck.getTruckid()+" not found"));
+
+       if(truck.getCuisinetype() != null)
+       {
+           updTruck.setCuisinetype(truck.getCuisinetype());
+       }
+       if(truck.getDeparturetime() != null)
+       {
+           updTruck.setDeparturetime(truck.getDeparturetime());
+       }
+       if(truck.getLocation() != null)
+       {
+           updTruck.setLocation(truck.getLocation());
+       }
+       if(truck.getOperator() != null)
+       {
+           Operator operator = operatorRepository.findById(truck.getOperator()
+               .getUserid())
+               .orElseThrow(() -> new EntityNotFoundException("Operator not found" + truck.getOperator()
+                   .getUserid()));
+           updTruck.setOperator(operator);
+       }
+
+       if(truck.getMenus().size()>0)
+       {
+           updTruck.getMenus()
+               .clear();
+           for (Menu m : truck.getMenus())
+           {
+               updTruck.getMenus()
+                   .add(new Menu(m.getItemname(),
+                       m.getItemdescription(),
+                       m.getItemprice(),
+                       updTruck));
+           }
+       }
+
+       if(truck.getCustomerratings().size()>0)
+       {
+           updTruck.getCustomerratings()
+               .clear();
+           int avg = 0;
+           for (CustRating cr : truck.getCustomerratings())
+           {
+               avg = cr.getRating() + avg;
+               updTruck.getCustomerratings()
+                   .add(new CustRating(cr.getRating(),
+                       updTruck));
+
+           }
+           if (truck.getCustomerratings()
+               .size() > 0)
+           {
+               updTruck.setCustomerratingavg(avg / truck.getCustomerratings()
+                   .size());
+           }
+       }
+
+       if(truck.getImageoftruck()!= null)
+       {
+           updTruck.setImageoftruck(truck.getImageoftruck());
+       }
+        return truckRepository.save(updTruck);
     }
 }

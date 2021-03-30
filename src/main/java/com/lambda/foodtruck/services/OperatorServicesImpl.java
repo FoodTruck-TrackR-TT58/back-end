@@ -9,14 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.Date;
-
+@Transactional
 @Service(value = "operatorServices")
 public class OperatorServicesImpl implements OperatorServices
 {
    @Autowired
    private OperatorRepository operatorRepository;
 
+   @Transactional
     @Override
     public Operator save(Operator operator)
     {
@@ -41,7 +43,8 @@ public class OperatorServicesImpl implements OperatorServices
               newoperator,
               tr.getDeparturetime(),
               tr.getLocation(),
-              tr.getImageoftruck());
+              tr.getImageoftruck(),
+              tr.getDiner());
 
 
           for(CustRating cr: tr.getCustomerratings())
