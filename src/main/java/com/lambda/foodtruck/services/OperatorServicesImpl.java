@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Transactional
 @Service(value = "operatorServices")
@@ -19,7 +21,24 @@ public class OperatorServicesImpl implements OperatorServices
    @Autowired
    private OperatorRepository operatorRepository;
 
-   @Transactional
+    @Override
+    public List<Operator> findAllOperators()
+    {
+        List<Operator> operators = new ArrayList<>();
+        operatorRepository.findAll().iterator().forEachRemaining(operators::add);
+        return operators;
+    }
+
+    @Override
+    public Operator findOperatorByid(long id)
+    {
+        Operator operator = operatorRepository.findById(id)
+            .orElseThrow(()->new EntityNotFoundException());
+
+        return operator;
+    }
+
+    @Transactional
     @Override
     public Operator save(Operator operator)
     {
