@@ -27,9 +27,9 @@ public class SecurityUserServiceImpl implements UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException
     {
-        System.out.println(s);
+
         Operator operator = operatorRepository.findByUsername(s.toLowerCase());
-        System.out.println(operator);
+
         Diner diner = dinerRepository.findDinerByUsername(s.toLowerCase());
         if(operator!=null)
         {

@@ -46,4 +46,15 @@ public class UserMinimum
    {
       this.role = role;
    }
+
+   @Override
+   public String toString()
+   {
+      return "UserMinimum{" +
+          "username='" + username + '\'' +
+          ", password='" + password + '\'' +
+          ", email='" + email + '\'' +
+          ", role='" + role + '\'' +
+          '}';
+   }
 }

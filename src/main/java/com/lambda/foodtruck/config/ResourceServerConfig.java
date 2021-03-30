@@ -61,7 +61,9 @@ public class ResourceServerConfig
                 "/swagger-ui.html",
                 "/v2/api-docs",
                 "/webjars/**",
-                "/createnewuser")
+                "/register")
+            .permitAll()
+            .antMatchers("/register")
             .permitAll()
             .antMatchers(HttpMethod.POST,"/trucks/**")
             .hasAnyRole("OPERATOR")
@@ -72,6 +74,8 @@ public class ResourceServerConfig
             .antMatchers(HttpMethod.DELETE,"/trucks/**")
             .hasAnyRole("OPERATOR")
             .antMatchers(HttpMethod.GET,"/trucks/**")
+            .authenticated()
+            .antMatchers("/logout","/oauth/revoke-token")
             .authenticated()
             .anyRequest().denyAll() // deny any endpoint that is not explicitly given access rights
             .and()
