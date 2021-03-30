@@ -38,6 +38,11 @@ public class Truck
     @JsonIgnoreProperties(value = "trucksOwned")
     private Operator operator;
 
+    @ManyToOne
+    @JoinColumn(name = "dinerid", nullable = false)
+    @JsonIgnoreProperties(value = "faveTrucks")
+    private Diner diner;
+
     @OneToMany(mappedBy = "truck",
     cascade = CascadeType.ALL,
     orphanRemoval = true)
