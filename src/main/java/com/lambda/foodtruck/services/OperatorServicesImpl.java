@@ -1,5 +1,6 @@
 package com.lambda.foodtruck.services;
 
+import com.lambda.foodtruck.exceptions.ResourceNotFoundException;
 import com.lambda.foodtruck.models.CustRating;
 import com.lambda.foodtruck.models.Menu;
 import com.lambda.foodtruck.models.Operator;
@@ -8,11 +9,11 @@ import com.lambda.foodtruck.repositories.OperatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Transactional
 @Service(value = "operatorServices")
@@ -33,7 +34,7 @@ public class OperatorServicesImpl implements OperatorServices
     public Operator findOperatorByid(long id)
     {
         Operator operator = operatorRepository.findById(id)
-            .orElseThrow(()->new EntityNotFoundException());
+            .orElseThrow(()->new ResourceNotFoundException("Operator " + id +" not found"));
 
         return operator;
     }
@@ -47,7 +48,7 @@ public class OperatorServicesImpl implements OperatorServices
         if(operator.getUserid()!=0)
         {
             operatorRepository.findById(operator.getUserid())
-                .orElseThrow(()-> new EntityNotFoundException("Operator "+operator.getUserid()+"not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Operator "+operator.getUserid()+"not found"));
             newoperator.setUserid(operator.getUserid());
         }
 
@@ -84,5 +85,16 @@ public class OperatorServicesImpl implements OperatorServices
           newoperator.getTrucksOwned().add(truck);
         }
         return operatorRepository.save(newoperator);
+    }
+
+    @Override
+    public Operator findByName(String name)
+    {
+        Operator operator = operatorRepository.findByUsername(name.toLowerCase());
+        if(operator == null)
+        {
+            throw new ResourceNotFoundException("Operator not found");
+        }
+        return operator;
     }
 }

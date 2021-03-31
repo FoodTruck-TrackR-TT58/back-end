@@ -9,4 +9,5 @@ public interface OperatorServices
     Operator save(Operator operator);
     List<Operator> findAllOperators();
     Operator findOperatorByid(long id);
+    Operator findByName(String name);
 }

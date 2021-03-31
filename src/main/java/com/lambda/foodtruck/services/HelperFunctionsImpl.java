@@ -1,7 +1,11 @@
 package com.lambda.foodtruck.services;
 
+import com.lambda.foodtruck.exceptions.ResourceNotFoundException;
 import com.lambda.foodtruck.models.ValidationError;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -47,4 +51,21 @@ public class HelperFunctionsImpl implements HelperFunctions
 
         return listVE;
     }
+
+    @Override
+    public boolean isAuthorizedToMakeChange(String username)
+    {
+        Authentication authentication = SecurityContextHolder.getContext()
+            .getAuthentication();
+        if(username.equalsIgnoreCase(authentication.getName()))
+        {
+            return true;
+        }
+        else
+        {
+            throw new ResourceNotFoundException(authentication.getName()+ " not authorized to make changes");
+        }
+
+    }
+
 }
