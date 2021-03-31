@@ -41,7 +41,7 @@ public class SeedData
     {
         Operator o1 = new Operator("coolrunner", "lambdallama", "coolrunner12@gmail.com");
         Diner d1 = new Diner("Ramasundar", "lambdallama","lambda@mail.lm", "47.7066144,-116.8551");
-        dinerServices.save(d1);
+        d1 = dinerServices.save(d1);
 
         Truck t1 = new Truck( "American", o1,new Date() ,"47.7066144,-116.8551", "",d1);
         t1.getMenus().add(new Menu("taco", "Meat, cheese, and vegetables in a tortilla", 4.35, t1));

@@ -155,4 +155,13 @@ public class TruckServicesImpl implements TruckServices
        }
         return truckRepository.save(updTruck);
     }
+
+    @Transactional
+    @Override
+    public void deleteTruckByid(long id)
+    {
+        truckRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Truck "+id+" not found"));
+        truckRepository.deleteById(id);
+    }
 }

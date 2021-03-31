@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -28,6 +30,12 @@ public class TruckController
         return new ResponseEntity<>(trucks,
             HttpStatus.OK);
     }
+
+//    @GetMapping(value = "/mytrucks",produces = "application/json")
+//    public ResponseEntity<?> findMyTrucks(){
+//        Authentication authentication = SecurityContextHolder.getContext()
+//            .getAuthentication();
+//    }
 
     @GetMapping(value = "/truck/{truckid}",produces = "application/json")
     public ResponseEntity<?> findTruckByid(@PathVariable long truckid)
@@ -67,6 +75,12 @@ public class TruckController
       truck.setTruckid(truckid);
       truckServices.update(truck,truckid);
       return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/truck/{truckid}")
+    public ResponseEntity<?> deleteTruck(@PathVariable long truckid){
+        truckServices.deleteTruckByid(truckid);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

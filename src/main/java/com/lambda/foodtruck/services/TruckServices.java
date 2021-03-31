@@ -10,4 +10,5 @@ public interface TruckServices
     Truck findTruckByid(long id);
     Truck update(Truck truck,long id);
     Truck save(Truck truck);
+    void deleteTruckByid(long id);
 }
