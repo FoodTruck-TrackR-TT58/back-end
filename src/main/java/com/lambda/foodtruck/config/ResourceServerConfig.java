@@ -65,6 +65,8 @@ public class ResourceServerConfig
             .permitAll()
             .antMatchers("/register")
             .permitAll()
+            .antMatchers("/operators/**")
+            .hasAnyRole("OPERATOR")
             .antMatchers(HttpMethod.POST,"/trucks/**")
             .hasAnyRole("OPERATOR")
             .antMatchers(HttpMethod.PUT,"/trucks/**")

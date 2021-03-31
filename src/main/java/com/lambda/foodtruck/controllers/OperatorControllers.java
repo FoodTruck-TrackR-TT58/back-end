@@ -52,4 +52,19 @@ public class OperatorControllers
         return  new ResponseEntity<>(null,responseHeaders,
             HttpStatus.CREATED);
     }
+
+    @PutMapping(value = "/replace/operator/{operid}",consumes = "application/json",produces = "application/json")
+    public ResponseEntity<?> replaceOperator(@PathVariable long operid, @RequestBody @Valid Operator operator)
+    {
+        operator.setUserid(operid);
+        operatorServices.save(operator);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PatchMapping(value= "/update/operator/{operid}",consumes = "application/json",produces = "application/json")
+    public ResponseEntity<?> updateOperator(@PathVariable long operid,@RequestBody Operator operator)
+    {
+        operatorServices.update(operid,operator);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

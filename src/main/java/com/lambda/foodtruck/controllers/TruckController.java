@@ -1,6 +1,8 @@
 package com.lambda.foodtruck.controllers;
 
+import com.lambda.foodtruck.models.Operator;
 import com.lambda.foodtruck.models.Truck;
+import com.lambda.foodtruck.services.OperatorServices;
 import com.lambda.foodtruck.services.TruckServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +25,8 @@ public class TruckController
     @Autowired
     private TruckServices truckServices;
 
+    @Autowired
+    private OperatorServices operatorServices;
     @GetMapping(value = "/trucks",produces = "application/json")
     public ResponseEntity<?> findAlltrucks()
     {
